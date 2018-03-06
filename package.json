@@ -1,0 +1,22 @@
+{
+  "name": "vanilla-whats-down",
+  "version": "0.0.1",
+  "description": "Vanilla JavaScript WhatsApp Clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MCJ93/vanilla-whats-down.git"
+  },
+  "keywords": [
+    "JavasScript"
+  ],
+  "author": "Macjej",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MCJ93/vanilla-whats-down/issues"
+  },
+  "homepage": "https://github.com/MCJ93/vanilla-whats-down#readme"
+}
