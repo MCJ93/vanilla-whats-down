@@ -13,10 +13,17 @@ module.exports = {
     new HtmlWebpackPlugin()
   ],
   module: {
-    rules: [{
-      test: /\.js$/,
+    rules: [{ 
+       test: /\.js$/,
+       exclude: /node_modules/,
+      use: 'babel-loader'
+    }, {
+      test: /\.css$/,
       exclude: /node_modules/,
-      use: "babel-loader"
-    }]
+      use: [
+        {loader: 'style-loader'},
+        {loader: 'css-loader'}
+       ]
+     }]
   }
 };
