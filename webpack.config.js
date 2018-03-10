@@ -1,5 +1,15 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const env = process.env.NODE_ENV || 'development';
+const isDev = env === 'development';
+const isProd = env === 'production';
+
+const extractScss = new ExtractTextPlugin({
+  filename: 'index.css',
+  disable: isDev
+});
 
 module.exports = {
   entry: {
@@ -10,20 +20,29 @@ module.exports = {
     filename: 'bundle.js'
   },
   plugins: [
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin(),
+    extractScss
   ],
   module: {
-    rules: [{ 
+    rules: [{
+      enforce: 'pre',
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: 'eslint-loader'
+      }, { 
        test: /\.js$/,
        exclude: /node_modules/,
       use: 'babel-loader'
     }, {
-      test: /\.css$/,
+      test: /(\.css|\.scss)$/,
       exclude: /node_modules/,
-      use: [
-        {loader: 'style-loader'},
-        {loader: 'css-loader'}
-       ]
-     }]
+      use: extractScss.extract({
+        use:[
+          {loader: 'css-loader'},
+          {loader: 'sass-loader'}
+       ],
+       fallback: 'style-loader'
+      })
+    }]
   }
 };

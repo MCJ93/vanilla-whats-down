@@ -1,5 +1,5 @@
-import message from './message';
-import "./index.css";
+import message from "./message";
+import "./index.scss";
 
 const paragraph = document.createElement("p");
 paragraph.innerHTML = message;
