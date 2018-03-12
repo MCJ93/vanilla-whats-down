@@ -3,7 +3,11 @@ $color-grey: #677077;
 $color-light-grey: #b5b5b7;
 $color-yellow: #f2b632;
 
-$padding-box: 10px;
+$padding-sm: 4px;
+$padding-md: 10px;
+$padding-lg: 20px;
+
+$margin-sm: 4px;
 
 body {
   margin: 0;
@@ -13,11 +17,54 @@ body {
 
 .page-header {
   display: flex;
-  min-height: 40px;
+  justify-content: flex-end;
+  align-items: center;
+  height: 40px;
   background: $color-yellow;
-  padding: $padding-box;
+  padding: $padding-md;
+
+  .item {
+    font-size: 18px;
+    color: $color-grey;
+    font-family: "Lato";
+    padding: $padding-sm;
+    border-bottom: 2px solid $color-yellow;
+    cursor: pointer;
+    text-decoration: none;
+    
+    &:hover {
+      border-bottom: 2px solid $color-dark-blue;
+    }
+  }
 }
 
-.page-body {
+.page-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 60px);
 
+  .login-page {
+    display: flex;
+    background: $color-dark-blue;
+    padding: $padding-lg;
+    flex-direction: column;
+    border: 5px solid $color-yellow;
+
+    .field {
+      padding: $padding-sm;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+
+      input {
+        display: block;
+        margin-top: $padding-md;
+        border: 0px;
+        padding: 4px;
+        font-size: 16px;
+        border: 2px solid $color-yellow;
+      }
+    }
+  }
 }
