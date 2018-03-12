@@ -6,7 +6,7 @@ export default class Login {
   }
   
   _loadTemplate() {
-    const pageWrapper = document.getElementById("page-wrapper");
+    const pageWrapper = document.getElementById("page-content");
     pageWrapper.innerHTML = login;
   }
 }

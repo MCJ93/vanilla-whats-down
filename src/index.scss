@@ -1,5 +1,23 @@
+$color-dark-blue: #252839;
+$color-grey: #677077;
+$color-light-grey: #b5b5b7;
+$color-yellow: #f2b632;
+
+$padding-box: 10px;
+
 body {
-  p {
-    color: red;
-  }
+  margin: 0;
+  background: $color-grey;
+  color: $color-yellow;
+}
+
+.page-header {
+  display: flex;
+  min-height: 40px;
+  background: $color-yellow;
+  padding: $padding-box;
+}
+
+.page-body {
+
 }

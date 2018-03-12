@@ -1,6 +1,5 @@
 import Login from "../components/login/login";
 
-
 export default class Router {
   routeChangeHandler(routeParam) {
     
