@@ -1,7 +1,16 @@
-import message from "./message";
 import "./index.scss";
+import Router from "./router/router.js";
 
-const paragraph = document.createElement("p");
-paragraph.innerHTML = message;
+_setupPageWrapper();
+_setupRouter();
 
-document.body.prepend(paragraph);
+function _setupPageWrapper() {
+  const pageWrapper = document.createElement("div");
+  pageWrapper.setAttribute("id", "page-wrapper");
+  document.body.prepend(pageWrapper);
+}
+
+function _setupRouter() {
+  const router = new Router();
+  router.routeChangeHandler("login");
+}
