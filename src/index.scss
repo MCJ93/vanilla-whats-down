@@ -65,6 +65,20 @@ body {
         font-size: 16px;
         border: 2px solid $color-yellow;
       }
+
+      button {
+        border: 2px solid $color-yellow;
+        background: white;
+        padding: $padding-sm $padding-md;
+        cursor: pointer;
+        transition: 0.5s;
+
+        &:hover {
+          background: $color-yellow;
+          transition: 0.5s;
+          border: 2px solid white;
+        }
+      }
     }
   }
 }
