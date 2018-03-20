@@ -32,5 +32,5 @@ function _setupContent() {
 
 function _setupRouter() {
   const router = new Router();
-  router.routeChangeHandler("login");
+  router.routeChangeHandler();
 }

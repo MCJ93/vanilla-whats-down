@@ -18,9 +18,8 @@ export default class Login {
     const password = document.getElementById("password-input").value;
     const checkLogin = new loginApi().checkLogin(login, password);
     if (checkLogin) {
-      console.log("checked");
       const router = new Router();
-      router.routeChangeHandler("messenger");
+      router.changePath("messenger");
     }
   }
 }

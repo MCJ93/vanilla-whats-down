@@ -19,6 +19,12 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
+  devServer: {
+    port: 8080,
+    historyApiFallback: {
+      index: "index.html"
+    }
+  },
   plugins: [
     new HtmlWebpackPlugin(),
     extractScss
