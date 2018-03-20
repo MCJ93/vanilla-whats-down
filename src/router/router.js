@@ -1,6 +1,6 @@
 import Login from "../components/login/login";
 import Messenger from "../components/messenger/messenger";
-import pageNotFound from "../components/pageNotFound/pageNotFound";
+import PageNotFound from "../components/pageNotFound/pageNotFound";
 
 export default class Router {
   routeChangeHandler() {
@@ -13,11 +13,11 @@ export default class Router {
       new Messenger().setupComponent();
       break;
     default:
-      new pageNotFound().setupComponent();
+      new PageNotFound().setupComponent();
     }
   }
   
-  changePath(routeParam) {
+  changeUrl(routeParam) {
     window.location.pathname = routeParam;
   }
 }

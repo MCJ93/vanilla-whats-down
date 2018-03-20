@@ -19,7 +19,7 @@ export default class Login {
     const checkLogin = new loginApi().checkLogin(login, password);
     if (checkLogin) {
       const router = new Router();
-      router.changePath("messenger");
+      router.changeUrl("messenger");
     }
   }
 }
