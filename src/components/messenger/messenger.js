@@ -1,4 +1,5 @@
 import messenger from "html-loader!../messenger/messenger.html";
+import Friends from "../friends/friends";
 
 const messagesArray = [
   {message: "Test123", owner: "You"},
@@ -15,6 +16,8 @@ export default class Messenger {
     document.getElementById("message-input").addEventListener("keydown", this._onKeyPress.bind(this));
     document.getElementById("send-button").addEventListener("click", this._onSend);
     this._loadMessages();
+    const friendsComponent = new Friends();
+    friendsComponent.setupComponent();
   }
   
   _loadTemplate() {
@@ -45,7 +48,7 @@ export default class Messenger {
   }
 
   _addMessage(message) {
-    const messagesContainer = document.getElementById("messages-container");
+    const messagesContainer = document.getElementById("messages");
     const messageElement = document.createElement("div");
     if (message.owner === "You") {
       messageElement.setAttribute("class", "message message-yours"); 
