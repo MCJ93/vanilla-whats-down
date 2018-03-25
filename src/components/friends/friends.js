@@ -1,4 +1,5 @@
 import friends from "html-loader!../friends/friends.html";
+import Messenger from "../messenger/messenger";
 
 const friendsList = [
   {
@@ -27,32 +28,35 @@ export default class Friends {
   }
 
   _loadFriends() {
-    friendsList.map(friend => this._loadFriend(friend));
+    const friendsElement = document.getElementById("friends");
+    friendsElement.addEventListener("click", function(e){
+      if (e.target && e.target.id) {
+        this._onFriendClick(e.target.id);
+      }
+    }.bind(this));
+    friendsList.map(friend => this._loadFriend(friend, friendsElement));
   }
 
-  _loadFriend(friend) {
-    const friends = document.getElementById("friends");
+  _loadFriend(friend, friendsElement) {
     const friendContainer = document.createElement("div");
     friendContainer.setAttribute("class", "friend");
     friendContainer.setAttribute("id", `friend-${friend.id}`);
-
+    
     const friendInitials = document.createElement("div");
     friendInitials.setAttribute("class", "friend-initials");
     friendInitials.innerHTML = friend.initials;
     friendContainer.appendChild(friendInitials);
-
+    
     const friendName = document.createElement("div");
     friendName.setAttribute("class", "friend-name");
     friendName.innerHTML = `${friend.name} ${friend.surname}`;
     friendContainer.appendChild(friendName);
 
-    //CHECK WHY ONCLICK IS NOT WORKING
-    friendContainer.addEventListener("click", this._onFriendClick(friend.id));
-
-    friends.appendChild(friendContainer);
+    friendsElement.appendChild(friendContainer);
   }
 
-  _onFriendClick(friendId) {
-    console.log(friendId);
+  _onFriendClick(friend) {
+    const friendId = friend.slice(friend.indexOf("-") + 1);
+    console.log("HERE", Messenger);
   }
 }

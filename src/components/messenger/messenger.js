@@ -2,13 +2,31 @@ import messenger from "html-loader!../messenger/messenger.html";
 import Friends from "../friends/friends";
 
 const messagesArray = [
-  {message: "Test123", owner: "You"},
-  {message: "Test1234", owner: "NotYou"},
-  {message: "Tes3333323", owner: "You"},
-  {message: "Tes535234", owner: "You"},
-  {message: "T3353523", owner: "You"},
-  {message: "Te35355234", owner: "NotYou"}, 
+  {
+    userId: 0,
+    messages: [
+      {message: "Siema", owner: "You"},
+      {message: "Cześć", owner: "NotYou"},
+      {message: "Mam pytanie", owner: "You"},
+      {message: "widziałeś jabłka tanie gdzieś?", owner: "You"},
+      {message: "No pytam", owner: "You"},
+      {message: "Nie", owner: "NotYou"}
+    ]
+  },
+  {
+    userId: 1,
+    messages: [
+      {message: "Witaj", owner: "NotYou"},
+      {message: "Halo", owner: "NotYou"},
+      {message: "Hej", owner: "You"},
+      {message: "Sorry, jadłem", owner: "You"},
+      {message: "Okej", owner: "NotYou"},
+      {message: "Co tam?", owner: "NotYou"}
+    ]
+  }, 
 ];
+
+let userId = 0;
 
 export default class Messenger {
   setupComponent() {
@@ -41,8 +59,9 @@ export default class Messenger {
     }
   }
 
-  _loadMessages() {
-    messagesArray.map(message => {
+  _loadMessages(test) {
+    console.log(test);
+    messagesArray[userId].messages.map(message => {
       this._addMessage(message);
     });
   }
