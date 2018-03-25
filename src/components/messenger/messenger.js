@@ -1,5 +1,6 @@
-import messenger from "html-loader!../messenger/messenger.html";
 import Friends from "../friends/friends";
+import Messages from "../messages/messages";
+import messenger from "html-loader!../messenger/messenger.html";
 
 const messagesArray = [
   {
@@ -27,29 +28,37 @@ const messagesArray = [
 ];
 
 let userId = 0;
+let messagesComponent = null;
 
 export default class Messenger {
   setupComponent() {
     this._loadTemplate();
     document.getElementById("message-input").addEventListener("keydown", this._onKeyPress.bind(this));
     document.getElementById("send-button").addEventListener("click", this._onSend);
-    this._loadMessages();
     const friendsComponent = new Friends();
+    messagesComponent = new Messages(messagesArray.find(messages => messages.userId === userId));
     friendsComponent.setupComponent();
+    messagesComponent.setupComponent();
+    const friendsElement = document.getElementById("friends");
+    friendsElement.addEventListener("click", function(e){
+      if (e.target && e.target.id) {
+        this._onFriendClick(e.target.id);
+      }
+    }.bind(this));
   }
   
   _loadTemplate() {
     const pageWrapper = document.getElementById("page-content");
     pageWrapper.innerHTML = messenger;
   }
-  
+
   _onSend() {  
     const message = { message: document.getElementById("message-input").value };
     if (message) {
       message["owner"] =  "You";
       messagesArray.push(message);
       document.getElementById("message-input").value = null;
-      this._addMessage(message);
+      messagesComponent._addMessage(message);
     }
   }
 
@@ -59,22 +68,12 @@ export default class Messenger {
     }
   }
 
-  _loadMessages(test) {
-    console.log(test);
-    messagesArray[userId].messages.map(message => {
-      this._addMessage(message);
-    });
-  }
-
-  _addMessage(message) {
-    const messagesContainer = document.getElementById("messages");
-    const messageElement = document.createElement("div");
-    if (message.owner === "You") {
-      messageElement.setAttribute("class", "message message-yours"); 
-    } else {
-      messageElement.setAttribute("class", "message"); 
+  _onFriendClick(friend) {
+    const friendId = parseInt(friend.slice(friend.indexOf("-") + 1));
+    if (friendId !== userId) {
+      messagesComponent = new Messages(messagesArray.find(messages => messages.userId === friendId));
+      messagesComponent.setupComponent();
+      userId = friendId;
     }
-    messageElement.innerHTML = message.message;
-    messagesContainer.appendChild(messageElement);
   }
 }

@@ -1,5 +1,4 @@
 import friends from "html-loader!../friends/friends.html";
-import Messenger from "../messenger/messenger";
 
 const friendsList = [
   {
@@ -29,11 +28,6 @@ export default class Friends {
 
   _loadFriends() {
     const friendsElement = document.getElementById("friends");
-    friendsElement.addEventListener("click", function(e){
-      if (e.target && e.target.id) {
-        this._onFriendClick(e.target.id);
-      }
-    }.bind(this));
     friendsList.map(friend => this._loadFriend(friend, friendsElement));
   }
 
@@ -53,10 +47,5 @@ export default class Friends {
     friendContainer.appendChild(friendName);
 
     friendsElement.appendChild(friendContainer);
-  }
-
-  _onFriendClick(friend) {
-    const friendId = friend.slice(friend.indexOf("-") + 1);
-    console.log("HERE", Messenger);
   }
 }
