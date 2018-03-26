@@ -6,12 +6,36 @@ const messagesArray = [
   {
     userId: 0,
     messages: [
-      {message: "Siema", owner: "You"},
-      {message: "Cześć", owner: "NotYou"},
-      {message: "Mam pytanie", owner: "You"},
-      {message: "widziałeś jabłka tanie gdzieś?", owner: "You"},
-      {message: "No pytam", owner: "You"},
-      {message: "Nie", owner: "NotYou"}
+      {
+        message: "Siema",
+        owner: "You",
+        date: "2018-03-25T12:00:00Z"
+      },
+      {
+        message: "Cześć",
+        owner: "NotYou",
+        date: "2018-03-25T12:01:00Z"
+      },
+      {
+        message: "Mam pytanie",
+        owner: "You",
+        date: "2018-03-25T12:01:10Z"
+      },
+      {
+        message: "widziałeś jabłka tanie gdzieś?",
+        owner: "You",
+        date: "2018-03-25T12:01:40Z"
+      },
+      {
+        message: "No pytam",
+        owner: "You",
+        date: "2018-03-25T12:02:30Z"
+      },
+      {
+        message: "Nie",
+        owner: "NotYou",
+        date: "2018-03-25T12:02:50Z"
+      }
     ]
   },
   {
@@ -56,6 +80,7 @@ export default class Messenger {
     const message = { message: document.getElementById("message-input").value };
     if (message) {
       message["owner"] =  "You";
+      message["date"] = new Date();
       messagesArray.push(message);
       document.getElementById("message-input").value = null;
       messagesComponent._addMessage(message);
