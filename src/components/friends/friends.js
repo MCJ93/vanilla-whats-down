@@ -1,21 +1,10 @@
 import friends from "html-loader!../friends/friends.html";
 
-const friendsList = [
-  {
-    "id": 0,
-    "name": "John",
-    "surname": "Cena",
-    "initials": "JC"
-  },
-  {
-    "id": 1,
-    "name": "Test123",
-    "surname": "Ddadad",
-    "initials": "TD"
-  }
-];
-
 export default class Friends {
+  constructor(data) {
+    this.friendsList = data;
+  }
+
   setupComponent() {
     this._loadTemplate();
     this._loadFriends();
@@ -28,7 +17,7 @@ export default class Friends {
 
   _loadFriends() {
     const friendsElement = document.getElementById("friends");
-    friendsList.map(friend => this._loadFriend(friend, friendsElement));
+    this.friendsList.map(friend => this._loadFriend(friend, friendsElement));
   }
 
   _loadFriend(friend, friendsElement) {
@@ -40,12 +29,23 @@ export default class Friends {
     friendInitials.setAttribute("class", "friend-initials");
     friendInitials.innerHTML = friend.initials;
     friendContainer.appendChild(friendInitials);
+
+    const messageNameContainer = document.createElement("div");
+    messageNameContainer.setAttribute("class", "frient-message-name-container");
+    
+    const friendMessage = document.createElement("div");
+    friendMessage.setAttribute("class", "friend-recent-message");
+    if (friend.recentMessage) {
+      friendMessage.innerHTML = friend.recentMessage.message;
+      messageNameContainer.appendChild(friendMessage);
+    }
     
     const friendName = document.createElement("div");
     friendName.setAttribute("class", "friend-name");
     friendName.innerHTML = `${friend.name} ${friend.surname}`;
-    friendContainer.appendChild(friendName);
-
+    messageNameContainer.appendChild(friendName);
+    
+    friendContainer.appendChild(messageNameContainer);
     friendsElement.appendChild(friendContainer);
   }
 }

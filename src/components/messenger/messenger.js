@@ -51,6 +51,25 @@ const messagesArray = [
   }, 
 ];
 
+const friendsList = [
+  {
+    "id": 0,
+    "name": "John",
+    "surname": "Cena",
+    "initials": "JC",
+    recentMessage: {
+      message: "Nie",
+      date: "2018-03-25T12:02:50Z"
+    }
+  },
+  {
+    "id": 1,
+    "name": "Test123",
+    "surname": "Ddadad",
+    "initials": "TD"
+  }
+];
+
 let userId = 0;
 let messagesComponent = null;
 
@@ -59,7 +78,7 @@ export default class Messenger {
     this._loadTemplate();
     document.getElementById("message-input").addEventListener("keydown", this._onKeyPress.bind(this));
     document.getElementById("send-button").addEventListener("click", this._onSend);
-    const friendsComponent = new Friends();
+    const friendsComponent = new Friends(friendsList);
     messagesComponent = new Messages(messagesArray.find(messages => messages.userId === userId));
     friendsComponent.setupComponent();
     messagesComponent.setupComponent();

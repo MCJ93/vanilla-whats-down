@@ -156,6 +156,8 @@ body {
           cursor: pointer;
 
           .friend-initials {
+            display: flex;
+            justify-content: center;
             border-radius: 50%;
             height: 40px;
             width: 40px;
@@ -167,10 +169,14 @@ body {
             font-weight: bold;
           }
 
-          .friend-name {
-            margin-left: $margin-md;
+          .frient-message-name-container {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            padding-left: $padding-md;
+
+            .friend-name {
+
+            }
           }
         }
       }
