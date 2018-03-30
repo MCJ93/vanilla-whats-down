@@ -76,6 +76,8 @@ let messagesComponent = null;
 export default class Messenger {
   setupComponent() {
     this._loadTemplate();
+    console.log(localStorage.getItem("whatsDownAuth"));   
+    console.log(localStorage.getItem("whatsDownUserName"));
     document.getElementById("message-input").addEventListener("keydown", this._onKeyPress.bind(this));
     document.getElementById("send-button").addEventListener("click", this._onSend);
     const friendsComponent = new Friends(friendsList);

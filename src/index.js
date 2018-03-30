@@ -34,3 +34,12 @@ function _setupRouter() {
   const router = new Router();
   router.routeChangeHandler();
 }
+
+/*
+  TODO:
+  USERS MANAGEMENT,
+  BETTER REDIRECTS (IT STARTS WITH 404),
+  ADD DEFAULT BOT,
+  LOAD TEMPLATES IN JS FILE,
+  BACKEND
+*/
