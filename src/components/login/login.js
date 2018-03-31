@@ -18,7 +18,7 @@ export default class Login {
     const password = document.getElementById("password-input").value;
     const checkLogin = loginApi(login, password);
     if (checkLogin) {
-
+    
       const router = new Router();
       router.changeUrl("messenger");
     }

@@ -1,20 +1,15 @@
-const users = [
-  {
-    id: "0",
-    userName: "macjej",
-    password: "test",
-    friends: ["0", "1", "2", "3", "4"], //ids
-    auth: null
-  }
-];
+import { users } from "./users";
 
 export default function checkLogin(login, password) {
   const user = users.find(user => user.userName === login && user.password === password);
   if (user) {
     const auth = generateAuth(user);  //WILL BE DONE ON BACKEND
     localStorage.setItem("whatsDownAuth", auth);
+    localStorage.setItem("whatsDownUserId", user.id);
     localStorage.setItem("whatsDownUserName", user.userName);
-    return user.id ;
+    localStorage.setItem("whatsDownUserFriends", user.friends);
+    // debugger;
+    return user.id;
   }
   return false;
 }

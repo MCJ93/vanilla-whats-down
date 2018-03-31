@@ -1,87 +1,26 @@
 import Friends from "../friends/friends";
 import Messages from "../messages/messages";
 import messenger from "html-loader!../messenger/messenger.html";
+import { users } from "../../apis/users";
+import { messages as messagesArray } from "../../apis/messages";
 
-const messagesArray = [
-  {
-    userId: 0,
-    messages: [
-      {
-        message: "Siema",
-        owner: "You",
-        date: "2018-03-25T12:00:00Z"
-      },
-      {
-        message: "Cześć",
-        owner: "NotYou",
-        date: "2018-03-25T12:01:00Z"
-      },
-      {
-        message: "Mam pytanie",
-        owner: "You",
-        date: "2018-03-25T12:01:10Z"
-      },
-      {
-        message: "widziałeś jabłka tanie gdzieś?",
-        owner: "You",
-        date: "2018-03-25T12:01:40Z"
-      },
-      {
-        message: "No pytam",
-        owner: "You",
-        date: "2018-03-25T12:02:30Z"
-      },
-      {
-        message: "Nie",
-        owner: "NotYou",
-        date: "2018-03-25T12:02:50Z"
-      }
-    ]
-  },
-  {
-    userId: 1,
-    messages: [
-      {message: "Witaj", owner: "NotYou"},
-      {message: "Halo", owner: "NotYou"},
-      {message: "Hej", owner: "You"},
-      {message: "Sorry, jadłem", owner: "You"},
-      {message: "Okej", owner: "NotYou"},
-      {message: "Co tam?", owner: "NotYou"}
-    ]
-  }, 
-];
-
-const friendsList = [
-  {
-    "id": 0,
-    "name": "John",
-    "surname": "Cena",
-    "initials": "JC",
-    recentMessage: {
-      message: "Nie",
-      date: "2018-03-25T12:02:50Z"
-    }
-  },
-  {
-    "id": 1,
-    "name": "Test123",
-    "surname": "Ddadad",
-    "initials": "TD"
-  }
-];
-
-let userId = 0;
+let userId = null;
 let messagesComponent = null;
 
 export default class Messenger {
   setupComponent() {
     this._loadTemplate();
-    console.log(localStorage.getItem("whatsDownAuth"));   
-    console.log(localStorage.getItem("whatsDownUserName"));
     document.getElementById("message-input").addEventListener("keydown", this._onKeyPress.bind(this));
     document.getElementById("send-button").addEventListener("click", this._onSend);
-    const friendsComponent = new Friends(friendsList);
-    messagesComponent = new Messages(messagesArray.find(messages => messages.userId === userId));
+    const userFriends = JSON.parse("[" + localStorage.getItem("whatsDownUserFriends") + "]");
+    const mappedFriends = userFriends.map(friend => friend.toString());
+    const friendsListIds = mappedFriends.filter(friend => {
+      return users.find(user => user.id === friend);
+    });
+    const friends = users.filter(friend => friendsListIds.some(friendId => friendId === friend.id));
+    const friendsComponent = new Friends(friends);
+    userId = localStorage.getItem("whatsDownUserId");
+    messagesComponent = new Messages((messagesArray.find(message => message.userIds.includes(userId))));
     friendsComponent.setupComponent();
     messagesComponent.setupComponent();
     const friendsElement = document.getElementById("friends");
@@ -100,7 +39,7 @@ export default class Messenger {
   _onSend() {  
     const message = { message: document.getElementById("message-input").value };
     if (message) {
-      message["owner"] =  "You";
+      message["ownerId"] =  userId;
       message["date"] = new Date();
       messagesArray.push(message);
       document.getElementById("message-input").value = null;
@@ -116,8 +55,10 @@ export default class Messenger {
 
   _onFriendClick(friend) {
     const friendId = parseInt(friend.slice(friend.indexOf("-") + 1));
+    console.log(friendId);
+    console.log(userId);
     if (friendId !== userId) {
-      messagesComponent = new Messages(messagesArray.find(messages => messages.userId === friendId));
+      messagesComponent = new Messages((messagesArray.find(message => message.userIds.includes(userId))));
       messagesComponent.setupComponent();
       userId = friendId;
     }

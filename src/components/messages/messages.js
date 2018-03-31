@@ -1,5 +1,6 @@
 import messages from "html-loader!../messages/messages.html";
 
+let userId = null;
 export default class Messages {
   constructor(data) {
     this.messagesArray = data.messages;
@@ -7,6 +8,7 @@ export default class Messages {
 
   setupComponent() {
     this._loadTemplate();
+    userId = localStorage.getItem("whatsDownUserId");
     this._loadMessages();
   }
   
@@ -24,7 +26,7 @@ export default class Messages {
   _addMessage(message) {
     const messagesContainer = document.getElementById("messages");
     const messageElement = document.createElement("div");
-    if (message.owner === "You") {
+    if (message.ownerId === userId) {
       messageElement.setAttribute("class", "message message-yours"); 
     } else {
       messageElement.setAttribute("class", "message"); 
