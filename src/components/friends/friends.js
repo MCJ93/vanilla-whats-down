@@ -25,27 +25,30 @@ export default class Friends {
     friendContainer.setAttribute("class", "friend");
     friendContainer.setAttribute("id", `friend-${friend.id}`);
     
-    const friendInitials = document.createElement("div");
-    friendInitials.setAttribute("class", "friend-initials");
-    friendInitials.innerHTML = friend.initials;
-    friendContainer.appendChild(friendInitials);
+    const friendInitialsElement = document.createElement("div");
+    friendInitialsElement.setAttribute("class", "friend-initials");
+    const friendInitials = friend.name.charAt(0) + friend.surname.charAt(0); 
+    friendInitialsElement.innerHTML = friendInitials;
+    friendContainer.appendChild(friendInitialsElement);
 
     const messageNameContainer = document.createElement("div");
-    messageNameContainer.setAttribute("class", "frient-message-name-container");
+    messageNameContainer.setAttribute("class", "friend-message-name-container");
     
     const friendMessage = document.createElement("div");
     friendMessage.setAttribute("class", "friend-recent-message");
-    if (friend.recentMessage) {
-      friendMessage.innerHTML = friend.recentMessage.message;
-      messageNameContainer.appendChild(friendMessage);
-    }
     
     const friendName = document.createElement("div");
     friendName.setAttribute("class", "friend-name");
     friendName.innerHTML = `${friend.name} ${friend.surname}`;
     messageNameContainer.appendChild(friendName);
+    messageNameContainer.appendChild(friendMessage);
     
     friendContainer.appendChild(messageNameContainer);
     friendsElement.appendChild(friendContainer);
+  }
+
+  updateLastMessage(message, friendId) {
+    const element = document.querySelector(`#friend-${friendId || message.ownerId} .friend-message-name-container .friend-recent-message`);
+    element.innerHTML = message.message;
   }
 }
