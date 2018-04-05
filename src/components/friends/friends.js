@@ -1,5 +1,7 @@
 import friends from "html-loader!../friends/friends.html";
 
+
+const userId = localStorage.getItem("whatsDownUserId");
 export default class Friends {
   constructor(data) {
     this.friendsList = data;
@@ -48,7 +50,14 @@ export default class Friends {
   }
 
   updateLastMessage(message, friendId) {
-    const element = document.querySelector(`#friend-${friendId || message.ownerId} .friend-message-name-container .friend-recent-message`);
-    element.innerHTML = message.message;
+    let messageElement = document.querySelector(`#friend-${friendId || message.ownerId} .friend-message-name-container .friend-recent-message`);
+    if (!messageElement) {
+      messageElement = document.querySelector(`#friend-${userId} .friend-message-name-container .friend-recent-message`);
+    }
+    const dateElement = document.createElement("div");
+    dateElement.setAttribute("class", "friend-recent-message-date");
+    dateElement.innerHTML = message.date;
+    messageElement.innerHTML = message.message;
+    messageElement.appendChild(dateElement);
   }
 }

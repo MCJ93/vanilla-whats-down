@@ -12,16 +12,18 @@ export const users = [
     id: "1",
     userName: "john1234",
     name: "John",
+    password: "test",
     surname: "Cena",
-    recentMessage: {
-      message: "Nie",
-      date: "2018-03-25T12:02:50Z"
-    }
+    friends: ["0", "2"],
+    auth: null
   },
   {
     id: "2",
     userName: "test1234",
+    password: "test",
     name: "Test",
-    surname: "Test2"
+    surname: "Test2",
+    friends: ["0", "1"],
+    auth: null
   }
 ];

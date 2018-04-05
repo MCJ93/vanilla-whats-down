@@ -1,6 +1,7 @@
 import Friends from "../friends/friends";
 import Messages from "../messages/messages";
 import messenger from "html-loader!../messenger/messenger.html";
+import { changeUrl } from "../../router/router.js";
 import { users } from "../../apis/users";
 import { messages as messagesArray } from "../../apis/messages";
 
@@ -11,6 +12,9 @@ let friendsComponent = null;
 
 export default class Messenger {
   setupComponent() {
+    if (!localStorage.getItem("whatsDownAuth")) {
+      changeUrl("login");
+    }
     this._loadTemplate();
     document.getElementById("message-input").addEventListener("keydown", this._onKeyPress.bind(this));
     document.getElementById("send-button").addEventListener("click", this._onSend);
@@ -48,7 +52,8 @@ export default class Messenger {
     const messages = messagesArray.filter(message => message.userIds.includes(userId));
     messages.map(messageObj => {
       const messagesLength = messageObj.messages.length;
-      friendsComponent.updateLastMessage(messageObj.messages[messagesLength - 1]);
+      const friendId = messageObj.userIds.find(id => id !== userId);
+      friendsComponent.updateLastMessage(messageObj.messages[messagesLength - 1], friendId);
     });
   }
   

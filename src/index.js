@@ -1,5 +1,5 @@
 import "./index.scss";
-import Router from "./router/router.js";
+import { routeChangeHandler } from "./router/router.js";
 import headerTemplate from "html-loader!./components/header/header.html";
 
 _setupPageWrapper();
@@ -31,14 +31,13 @@ function _setupContent() {
 }
 
 function _setupRouter() {
-  const router = new Router();
-  router.routeChangeHandler();
+  routeChangeHandler();
 }
 
 /*
   TODO:
-  USERS MANAGEMENT,
-  BETTER REDIRECTS (IT STARTS WITH 404),
+  USERS MANAGEMENT, - DONE
+  BETTER REDIRECTS (IT STARTS WITH 404), - 
   ADD DEFAULT BOT,
   LOAD TEMPLATES IN JS FILE,
   BACKEND
