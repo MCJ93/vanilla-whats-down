@@ -1,6 +1,6 @@
-import Login from "../components/login/login";
-import Messenger from "../components/messenger/messenger";
-import PageNotFound from "../components/pageNotFound/pageNotFound";
+import Login from "./login";
+import Messenger from "./messenger";
+import PageNotFound from "./pageNotFound";
 
 export function routeChangeHandler() {
   const pathName = window.location.pathname.slice(1);

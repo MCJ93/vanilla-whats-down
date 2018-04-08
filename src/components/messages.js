@@ -1,5 +1,3 @@
-import messages from "html-loader!../messages/messages.html";
-
 let userId = null;
 export default class Messages {
   constructor(data) {
@@ -14,7 +12,7 @@ export default class Messages {
   
   _loadTemplate() {
     const pageWrapper = document.getElementById("messages");
-    pageWrapper.innerHTML = messages;
+    pageWrapper.innerHTML = "";
   }
 
   _loadMessages() {
@@ -26,19 +24,14 @@ export default class Messages {
   _addMessage(message) {
     const messagesContainer = document.getElementById("messages");
     const messageElement = document.createElement("div");
-    if (message.ownerId === userId) {
-      messageElement.setAttribute("class", "message message-yours"); 
-    } else {
-      messageElement.setAttribute("class", "message"); 
-    }
-    const dateElement = document.createElement("div");
-    const formattedDate = this._formatDate(message.date);
-    if (formattedDate) {
-      dateElement.innerHTML = formattedDate;
-      dateElement.setAttribute("class", "date"); 
-    }
-    messageElement.innerHTML = message.message;
-    messageElement.appendChild(dateElement);
+    const isUserMessageOwner = message.ownerId === userId;
+    isUserMessageOwner ? messageElement.setAttribute("class", "message message-yours") : messageElement.setAttribute("class", "message");
+    const formattedDate = this._formatDate(message.date) || "";
+    messageElement.innerHTML = 
+      message.message +
+      "<div class='date'>" +
+        formattedDate +
+      "</div>";
     messagesContainer.appendChild(messageElement);
   }
 

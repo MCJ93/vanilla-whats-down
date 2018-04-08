@@ -1,9 +1,8 @@
-import Friends from "../friends/friends";
-import Messages from "../messages/messages";
-import messenger from "html-loader!../messenger/messenger.html";
-import { changeUrl } from "../../router/router.js";
-import { users } from "../../apis/users";
-import { messages as messagesArray } from "../../apis/messages";
+import Friends from "./friends";
+import Messages from "./messages";
+import { changeUrl } from "./router.js";
+import { users } from "../apis/users";
+import { messages as messagesArray } from "../apis/messages";
 
 const userId = localStorage.getItem("whatsDownUserId");
 let friendId = null;
@@ -59,6 +58,19 @@ export default class Messenger {
   
   _loadTemplate() {
     const pageWrapper = document.getElementById("page-content");
+    const messenger = 
+      "<div class='messenger-page' id='messenger-page'>" +
+        "<div class='messenger-container'>" +
+          "<div class='friends-container' id='friends-container'></div>" +
+          "<div class='messages' id='messages'></div>" +
+        "</div>" +
+        "<div class='message-bar'>" +
+          "<input type='text' id='message-input'>" +
+          "<button id='send-button'>" +
+           "Send" +
+          "</button>" +
+        "</div>" +
+      "</div>";
     pageWrapper.innerHTML = messenger;
   }
 

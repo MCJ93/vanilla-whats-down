@@ -1,6 +1,3 @@
-import friends from "html-loader!../friends/friends.html";
-
-
 const userId = localStorage.getItem("whatsDownUserId");
 export default class Friends {
   constructor(data) {
@@ -14,6 +11,9 @@ export default class Friends {
   
   _loadTemplate() {
     const friendsContainer = document.getElementById("friends-container");
+    const friends = 
+      "<div class='friends' id='friends'>" +
+      "</div>";  
     friendsContainer.innerHTML = friends;
   }
 
