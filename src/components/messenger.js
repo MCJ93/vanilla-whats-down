@@ -15,8 +15,6 @@ export default class Messenger {
       changeUrl("login");
     }
     this._loadTemplate();
-    document.getElementById("message-input").addEventListener("keydown", this._onKeyPress.bind(this));
-    document.getElementById("send-button").addEventListener("click", this._onSend);
     this._setupFriendsComponent();
     this._setupMessagesComponent();
     this._displayLastMessages();
@@ -58,20 +56,33 @@ export default class Messenger {
   
   _loadTemplate() {
     const pageWrapper = document.getElementById("page-content");
-    const messenger = 
-      "<div class='messenger-page' id='messenger-page'>" +
-        "<div class='messenger-container'>" +
-          "<div class='friends-container' id='friends-container'></div>" +
-          "<div class='messages' id='messages'></div>" +
-        "</div>" +
-        "<div class='message-bar'>" +
-          "<input type='text' id='message-input'>" +
-          "<button id='send-button'>" +
-           "Send" +
-          "</button>" +
-        "</div>" +
+    const messangerPage = document.createElement("div");
+    messangerPage.setAttribute("id", "messenger-page");
+    messangerPage.setAttribute("class", "messenger-page");
+    messangerPage.innerHTML =
+      "<div class='messenger-container'>" +
+        "<div class='friends-container' id='friends-container'></div>" +
+        "<div class='messages' id='messages'></div>" +
+      "</div>" +
+      "<div class='message-bar'>" +
+        "<input type='text' id='message-input'>" +
+        "<button id='send-button'>" +
+          "Send" +
+        "</button>" +
       "</div>";
-    pageWrapper.innerHTML = messenger;
+
+    document.addEventListener("keydown",function(e){
+      if(e.target && e.target.id== "message-input"){
+        this._onKeyPress(e);
+      }
+    }.bind(this));
+
+    document.addEventListener("click",function(e){
+      if(e.target && e.target.id== "send-button"){
+        this._onSend();
+      }
+    }.bind(this));
+    pageWrapper.appendChild(messangerPage);
   }
 
   _onSend() {  
