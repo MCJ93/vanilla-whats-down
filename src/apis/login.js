@@ -1,6 +1,14 @@
 import { users } from "./users";
 
 export default function checkLogin(login, password) {
+  var req = new XMLHttpRequest();
+  req.open("POST", "localhost:3000", true);
+  const loginObject = {
+    type: "login",
+    login,
+    password
+  };
+  req.send(JSON.stringify(loginObject));
   const user = users.find(user => user.userName === login && user.password === password);
   if (user) {
     const auth = generateAuth(user);  //WILL BE DONE ON BACKEND
