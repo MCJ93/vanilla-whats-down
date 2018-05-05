@@ -911,12 +911,16 @@ var _users = __webpack_require__(1);
 
 function checkLogin(login, password) {
   var req = new XMLHttpRequest();
-  req.open("POST", "http://localhost:3000", true);
+  req.open("POST", "http://188.116.53.247:3000", true);
   var loginObject = {
     type: "login",
     login: login,
     password: password
   };
+  /* eslint-disable */
+  console.log("send");
+  console.log(loginObject);
+  /* eslint-enable */
   req.send(JSON.stringify(loginObject));
   var user = _users.users.find(function (user) {
     return user.userName === login && user.password === password;

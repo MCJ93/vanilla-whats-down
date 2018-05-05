@@ -2,12 +2,16 @@ import { users } from "./users";
 
 export default function checkLogin(login, password) {
   var req = new XMLHttpRequest();
-  req.open("POST", "localhost:3000", true);
+  req.open("POST", "http://188.116.53.247:3000", true);
   const loginObject = {
     type: "login",
     login,
     password
   };
+  /* eslint-disable */
+  console.log("send");
+  console.log(loginObject);
+  /* eslint-enable */
   req.send(JSON.stringify(loginObject));
   const user = users.find(user => user.userName === login && user.password === password);
   if (user) {
